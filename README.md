@@ -43,10 +43,52 @@
 9. 레이아웃 템플릿
   * `Sitemesh`를 이용한 Layout Template를 사용합니다.
 
+  * `sitemesh.xml` 설정
   ```bash
-   # sitemesh.xml 설정
-   
-   # decorator.xml 설정
+    <?xml version="1.0" encoding="UTF-8"?>
+    <sitemesh>
+        <property name="decorators-file" value="/WEB-INF/config/decorator/decorator.xml" />
+        <excludes file="${decorators-file}" />
+        <page-parsers>
+            <parser content-type="text/html" class="com.opensymphony.module.sitemesh.parser.HTMLPageParser" />
+            <parser content-type="text/html;charset=UTF-8" class="com.opensymphony.module.sitemesh.parser.HTMLPageParser" />
+        </page-parsers>
+        <decorator-mappers>
+            <mapper	class="com.opensymphony.module.sitemesh.mapper.PrintableDecoratorMapper">
+                <param name="decorator" value="printable" />
+                <param name="parameter.name" value="printable" />
+                <param name="parameter.value" value="true" />
+            </mapper>
+            <mapper class="com.opensymphony.module.sitemesh.mapper.PageDecoratorMapper">
+                <param name="property" value="meta.decorator" />
+            </mapper>
+            <mapper	class="com.opensymphony.module.sitemesh.mapper.ConfigDecoratorMapper">
+                <param name="config" value="${decorators-file}" />
+            </mapper>
+        </decorator-mappers>
+    </sitemesh>
+  ```
+  
+  * `decorator.xml` 설정
+  ```bash
+    <?xml version="1.0" encoding="UTF-8"?>
+    <decorators defaultdir="/WEB-INF/views">
+        <excludes>
+            <pattern>/*.json</pattern>
+            <pattern>/*Proc</pattern>
+            <pattern>/mng/**</pattern>
+        </excludes>
+        <decorator name="top" page="/WEB-INF/views/layout/top.jsp" />
+        <decorator name="left" page="/WEB-INF/views/layout/left.jsp" />
+        <decorator name="bottom" page="/WEB-INF/views/layout/bottom.jsp" />
+        <decorator name="layout2" page="/WEB-INF/views/layout/layout2.jsp">
+            <pattern>/login</pattern>
+            <pattern>/login_error</pattern>
+        </decorator>
+        <decorator name="layout" page="/WEB-INF/views/layout/layout.jsp">
+            <pattern>/*</pattern>
+        </decorator>
+    </decorators>
   ```
 
 ### 주요 Framework
