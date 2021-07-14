@@ -40,6 +40,14 @@
        -p 26379:6379 \ # 포트 충돌을 방지하기 위해 Docker Container 6379 포트를 Docker Host 의 26379 로 연결
        redis:3 # Redis Docker Container Image 중 "3" 으로 tag 가 지정된 버젼 사용
    ```
+9. 레이아웃 템플릿
+  * `Sitemesh`를 이용한 Layout Template를 사용합니다.
+
+  ```bash
+   # sitemesh.xml 설정
+   
+   # decorator.xml 설정
+  ```
 
 ### 주요 Framework
 
